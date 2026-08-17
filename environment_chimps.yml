@@ -1,0 +1,24 @@
+name: chimps
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python
+  - pip
+  - jupyterlab
+  - numpy
+  - tskit
+  - tszip
+  - scipy
+  - ipywidgets
+  - tqdm
+  - matplotlib
+  - msprime
+  - pandas
+  - geopandas
+  - geodatasets
+  - h3pandas
+  - numba
+  - rasterio
+  - bio2zarr
+  - rasterstats
