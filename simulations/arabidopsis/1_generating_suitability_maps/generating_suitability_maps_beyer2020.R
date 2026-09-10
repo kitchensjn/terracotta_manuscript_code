@@ -23,6 +23,28 @@ envs <- region_slice(
   dataset = "Beyer2020"
 )
 
+
+
+times<--c(5e3,10e3,14e3,16e3,18e3,20e3,26e3,30e3,40e3,50e3,60e3,80e3)
+ice.times<-lapply(times,get_ice_mask,"Beyer2020")
+
+
+envs_times<-list()
+for(i in 1:length(times)){
+  envs_times[[i]] <- region_slice(
+    time_bp = times[i],
+    bio_variables = get_vars_for_dataset(dataset = "Beyer2020"),
+    dataset = "Beyer2020"
+  )
+}
+
+for(i in 1:length(times)){
+  plot(envs_times[[i]][[1]], main=paste(times[i]/1000," thousand years ago"),
+       xlim=range(occs$longitude)+c(-10,10),ylim=range(occs$lat)+c(-10,10));plot(ice.times[[i]],add=TRUE)
+  
+}
+
+
 #envs<-current_env
 #names(envs) <- paste("bio", 1:19, sep = "")
 
@@ -125,6 +147,17 @@ plot(eval.predictions(e.mx)[['fc.LQH_rm.1']],
 points(occs,cex=.1)
 
 aicmod <- which(e.mx@results$AICc == min(e.mx@results$AICc))
+
+
+climate <- region_slice(
+  time_bp = -14000,
+  bio_variables = get_vars_for_dataset(dataset = "Beyer2020"),
+  dataset = "Beyer2020"
+)
+suitability <- enm.maxnet@predict(e.mx@models[["fc.LQH_rm.1"]], climate,  list(pred.type ="cloglog", doClamp=FALSE))
+ice_masks <- get_ice_mask(-14000,"Beyer2020")
+plot(suitability)
+plot(ice_masks,add=TRUE)
 
 
 times <- seq(0, 120000, 1000)

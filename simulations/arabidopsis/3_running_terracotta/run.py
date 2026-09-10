@@ -8,7 +8,8 @@ result, loglikelihood = tct.run(
     connections_path="../2_creating_input_files/dataset/connections.tsv",
     samples_path="../2_creating_input_files/dataset/samples.tsv",
     trees_dir_path="../2_creating_input_files/dataset/trees_small",
-    output_file="output.tsv"
+    output_file="output_no_coal.tsv"
 )
 
+print(result)
 print(loglikelihood)
